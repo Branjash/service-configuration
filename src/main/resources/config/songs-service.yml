@@ -1,0 +1,27 @@
+app-config:
+  port: 8082
+  postgres-address: postgres-songs:5432
+
+server:
+  port: ${app-config.port}
+
+#  Postgresql Connection settings
+spring:
+
+  application:
+    name: songs-service
+
+  datasource:
+    url: jdbc:postgresql://${app-config.postgres-address}/songs
+    username: test
+    password: password
+
+  #JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  properties:
+    hibernate:
+      format_sql: true
+      dialect: org.hibernate.dialect.PostgreSQL94Dialect
