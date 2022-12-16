@@ -3,6 +3,7 @@ app-config:
     eureka-service-address: eureka-service:8761
     resource-service-address: resource-service:8081
     songs-service-address: songs-service:8082
+    storage-service-address: storage-service:8999
 
 spring:
   application:
@@ -24,6 +25,11 @@ spring:
           uri: http://${app-config.songs-service-address}/
           predicates:
             - Path=/songs/**
+
+        - id: storage-service
+          uri: http://${app-config.storage-service-address}/
+          predicates:
+            - Path=/storages/**
 ---
 server:
   port: ${app-config.port}
@@ -32,3 +38,4 @@ eureka:
   client:
     service-url:
       defaultZone: http://${app-config.eureka-service-address}/eureka
+    registry-fetch-interval-seconds: 10

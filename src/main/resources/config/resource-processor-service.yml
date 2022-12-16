@@ -1,6 +1,6 @@
 app-config:
   port: 8085
-  api-gateway: http://eureka-client:8088
+  api-gateway: http://service-client:8088
   kafka-address: kafka:9092
   kafka-group-id: resource-group
   kafka-topic: resource-topic
@@ -13,8 +13,11 @@ resource:
   kafka:
     topic: ${app-config.kafka-topic}
 
-
 spring:
+
+  application:
+    name: resource-processor-service
+
   kafka:
     bootstrap-servers: ${app-config.kafka-address}
     consumer:
@@ -30,10 +33,15 @@ feign:
       resource-api:
         connect-timeout: 20000
         read-timeout: 20000
+      storage-api:
+        connect-timeout: 20000
+        read-timeout: 20000
 
 rest:
   client:
-    resources-api:
+    resource-api:
       url: ${app-config.api-gateway}/resources
     songs-api:
       url: ${app-config.api-gateway}/songs
+    storage-api:
+      url: ${app-config.api-gateway}/storages

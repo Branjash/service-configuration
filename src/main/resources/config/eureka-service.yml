@@ -1,6 +1,10 @@
 server:
   port: 8761
 
+spring:
+  application:
+    name: eureka-service
+
 management:
   endpoint:
     health:
@@ -13,10 +17,6 @@ management:
       base-path: /
       exposure:
         include: '*'
-
-spring:
-  application:
-    name: eureka-service
 
 
 eureka:

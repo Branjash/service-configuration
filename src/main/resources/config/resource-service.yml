@@ -1,5 +1,6 @@
 app-config:
   port: 8081
+  api-gateway: http://service-client:8088
   localstack-address: http://localstack:4566
   postgres-address: postgres-resources:5432
   kafka-address: kafka:9092
@@ -41,13 +42,20 @@ spring:
       max-file-size: 200MB
       max-request-size: 215MB
   
-  # AWS S3 bucket
-amazonProperties:
-  accessKey: test
-  secretKey: test
-  url: ${app-config.localstack-address}
-  
   # Kafka
 resource:
   kafka:
     topic: resource-topic
+
+  # REST Client
+feign:
+  client:
+    config:
+      storage-api:
+        connect-timeout: 20000
+        read-timeout: 20000
+
+rest:
+  client:
+    storage-api:
+      url: ${app-config.api-gateway}/storages
